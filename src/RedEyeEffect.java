@@ -23,8 +23,11 @@ public class RedEyeEffect {
 
     private static final String redEyeImage = "red1.png";
 
-    private static final int WINDOW_WIDTH = 600;
-    private static final int WINDOW_HEIGHT = 300;
+    private static final int WINDOW_WIDTH = 530;
+    private static final int WINDOW_HEIGHT = 270;
+
+    private static final int MASK_WIDTH = 250;
+    private static final int MASK_HEIGHT = 200;
 
     static {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -47,10 +50,10 @@ public class RedEyeEffect {
         Mat[] eyesMask = createMask(blurMat, eyes);
 
         for (int i = 0; i < eyesMask.length; i++) {
-            showMat(eyesMask[i], i + "번째 눈 마스크");
+            showMat(eyesMask[i],MASK_WIDTH,MASK_HEIGHT, (i+1) + "번째 눈 마스크");
             eyesMask[i] = floodFill(eyesMask[i]);
             Imgproc.dilate(eyesMask[i], eyesMask[i], new Mat(new Size(3, 3), CV_8U, new Scalar(1)), new Point(-1, -1), 3);
-            showMat(eyesMask[i], i + "번째 눈 마스크 flood fill");
+            showMat(eyesMask[i],MASK_WIDTH,MASK_HEIGHT, (i+1) + "번째 눈 마스크 flood fill");
         }
 
 
